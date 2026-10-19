@@ -1,4 +1,4 @@
-const CACHE = 'little-moment-memory-v1';
+const CACHE = 'campus-memory-challenge-v2';
 const FILES = ['./', './index.html', './manifest.webmanifest', './icon.svg'];
 
 self.addEventListener('install', event => {

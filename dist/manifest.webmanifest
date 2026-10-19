@@ -1,7 +1,7 @@
 {
-  "name": "기억력 카드 뒤집기",
-  "short_name": "짝찾기",
-  "description": "그림 카드의 짝을 찾는 작은 기억력 게임",
+  "name": "기억력 챌린지 · 총학생회 이벤트",
+  "short_name": "기억력 챌린지",
+  "description": "60초 안에 카드 짝을 맞히는 총학생회 행사 게임",
   "lang": "ko-KR",
   "start_url": "./",
   "scope": "./",
