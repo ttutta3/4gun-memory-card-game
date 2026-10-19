@@ -1,0 +1,293 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#f6f8f2">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="짝찾기">
+  <meta name="description" content="귀여운 그림 카드의 짝을 찾아보세요. 기억력 카드 뒤집기 게임입니다.">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icon.svg">
+  <title>기억력 카드 뒤집기</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #24342d;
+      --muted: #78867d;
+      --paper: #f6f8f2;
+      --green: #315b47;
+      --mint: #dcece0;
+      --line: #e5e9df;
+      --coral: #ed876f;
+      --yellow: #f1ce71;
+      --shadow: 0 20px 55px rgba(45, 67, 52, .10);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; min-height: 100vh; background:
+        radial-gradient(ellipse at 12% 15%, rgba(216,236,222,.65), transparent 34%),
+        radial-gradient(ellipse at 88% 82%, rgba(250,227,198,.45), transparent 31%), var(--paper);
+      color: var(--ink); font-family: "Segoe UI", "Malgun Gothic", sans-serif;
+    }
+    button { font: inherit; touch-action: manipulation; }
+    .page { width: min(1040px, calc(100% - 40px)); margin: 0 auto; padding: max(24px, env(safe-area-inset-top)) 0 max(32px, env(safe-area-inset-bottom)); }
+    .topline { display:flex; justify-content:space-between; align-items:center; margin-bottom:34px; }
+    .brand { display:flex; gap:10px; align-items:center; color:var(--green); font-size:14px; font-weight:800; letter-spacing:.04em; }
+    .brand-mark { width:34px; height:34px; display:grid; place-items:center; border-radius:12px; background:#e1eee2; font-size:18px; }
+    .top-note { color:var(--muted); font-size:13px; }
+    .layout { display:grid; grid-template-columns:minmax(0, 1fr) 270px; gap:34px; align-items:start; }
+    .game-area { min-width:0; }
+    .intro { margin: 0 0 23px; }
+    .eyebrow { color:#6b8a72; text-transform:uppercase; font-size:11px; letter-spacing:.16em; font-weight:800; margin-bottom:9px; }
+    h1 { font-size:clamp(30px, 4vw, 43px); letter-spacing:-.055em; line-height:1.12; margin:0; }
+    .subtitle { margin:10px 0 0; color:var(--muted); font-size:15px; }
+    .toolbar { display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:12px; margin: 22px 0 14px; }
+    .segmented { display:inline-flex; padding:4px; border:1px solid var(--line); border-radius:13px; background:rgba(255,255,255,.62); }
+    .segmented button { border:0; padding:8px 14px; border-radius:9px; background:transparent; color:var(--muted); font-size:13px; font-weight:700; cursor:pointer; }
+    .segmented button[aria-pressed="true"] { color:white; background:var(--green); box-shadow:0 3px 8px rgba(49,91,71,.2); }
+    .stats { display:flex; gap:8px; }
+    .stat { min-width:75px; padding:8px 12px; background:rgba(255,255,255,.66); border:1px solid var(--line); border-radius:12px; text-align:center; }
+    .stat-label { display:block; color:var(--muted); font-size:10px; font-weight:800; letter-spacing:.06em; }
+    .stat-value { display:block; margin-top:2px; font-size:17px; font-weight:800; font-variant-numeric:tabular-nums; }
+    .board-wrap { position:relative; padding:17px; background:rgba(255,255,255,.55); border:1px solid rgba(225,231,220,.9); border-radius:23px; box-shadow:var(--shadow); }
+    .board { display:grid; grid-template-columns:repeat(4, minmax(0,1fr)); gap:11px; }
+    .card { position:relative; border:0; padding:0; aspect-ratio:1; min-width:44px; min-height:44px; perspective:700px; cursor:pointer; background:transparent; border-radius:15px; -webkit-tap-highlight-color:transparent; touch-action:manipulation; }
+    .card-inner { display:block; position:absolute; inset:0; transform-style:preserve-3d; transition:transform .38s cubic-bezier(.2,.75,.25,1); }
+    .card.is-open .card-inner, .card.is-matched .card-inner { transform:rotateY(180deg); }
+    .face { position:absolute; inset:0; display:grid; place-items:center; border-radius:15px; backface-visibility:hidden; -webkit-backface-visibility:hidden; }
+    .back { background:#e6efe5; border:1px solid #d9e7d9; color:#5c8065; box-shadow:inset 0 -3px 0 rgba(72,115,80,.07); }
+    .back::before { content:""; width:39%; height:39%; border:2px solid rgba(83,126,88,.34); border-radius:50% 50% 45% 45%; transform:rotate(-35deg); }
+    .back::after { content:"✳"; position:absolute; font-size:clamp(14px, 2vw, 20px); color:#6a9270; }
+    .front { transform:rotateY(180deg); background:#fffdf8; border:1px solid #f0eadf; font-size:clamp(26px, 5.1vw, 53px); box-shadow:inset 0 -3px 0 rgba(105,91,63,.05); }
+    .card:hover:not(.is-open):not(.is-matched) .back { background:#dceadd; transform:translateY(-2px); }
+    .card.is-matched .front { background:#f5f8e9; border-color:#dce9bb; }
+    .card:focus-visible { outline:3px solid #e69a80; outline-offset:3px; z-index:2; }
+    .card:disabled { cursor:default; }
+    .message { min-height:22px; margin:13px 4px 0; text-align:center; color:var(--muted); font-size:13px; }
+    .message strong { color:var(--green); }
+    .side { padding:21px; border-radius:20px; background:rgba(255,255,255,.68); border:1px solid var(--line); box-shadow:0 12px 34px rgba(45,67,52,.06); }
+    .side h2 { margin:0 0 15px; font-size:16px; letter-spacing:-.02em; }
+    .side p { color:var(--muted); font-size:13px; line-height:1.65; margin:0; }
+    .steps { display:grid; gap:13px; margin:18px 0 22px; }
+    .step { display:flex; align-items:flex-start; gap:10px; color:#56645b; font-size:13px; line-height:1.5; }
+    .step-icon { flex:0 0 25px; width:25px; height:25px; display:grid; place-items:center; border-radius:9px; background:#edf3e9; font-size:13px; }
+    .divider { height:1px; background:var(--line); margin:18px 0; }
+    .record { display:flex; justify-content:space-between; align-items:center; font-size:13px; color:var(--muted); }
+    .record b { color:var(--ink); font-size:14px; font-variant-numeric:tabular-nums; }
+    .reset { width:100%; display:flex; justify-content:center; align-items:center; gap:8px; margin-top:20px; padding:12px; border:1px solid #dbe3d8; border-radius:12px; background:#fff; color:var(--green); font-size:13px; font-weight:800; cursor:pointer; transition:.2s; }
+    .reset:hover { border-color:#9bb99d; background:#f7fbf5; transform:translateY(-1px); }
+    .footer { margin-top:23px; text-align:center; color:#9aa69b; font-size:11px; }
+    @media (max-width:900px) {
+      .page { width:min(700px, calc(100% - 32px)); padding-top:max(20px, env(safe-area-inset-top)); }
+      .topline { margin-bottom:25px; }
+      .layout { grid-template-columns:1fr; gap:18px; }
+      .side { display:grid; grid-template-columns:1fr 1fr; gap:0 18px; padding:17px; }
+      .side h2 { grid-column:1/-1; margin-bottom:8px; }
+      .steps { grid-column:1/-1; grid-template-columns:1fr 1fr; gap:8px; margin:10px 0 15px; }
+      .divider { display:none; }
+      .record { align-self:center; }
+      .reset { margin:0; }
+      .board-wrap { padding:12px; }
+      .board { gap:8px; }
+      .card, .face { border-radius:12px; }
+    }
+    @media (min-width:901px) and (max-height:760px) {
+      .page { padding-top:18px; padding-bottom:20px; }
+      .topline { margin-bottom:17px; }
+      .intro { margin-bottom:14px; }
+      .toolbar { margin-top:14px; }
+      .board-wrap { padding:12px; }
+      .board { gap:8px; }
+      .side { padding:17px; }
+      .steps { gap:9px; margin:12px 0 15px; }
+      .footer { margin-top:14px; }
+    }
+    @media (max-width:430px) {
+      .top-note { display:none; }
+      .toolbar { align-items:stretch; }
+      .segmented { flex:1; justify-content:center; }
+      .segmented button { flex:1; }
+      .stats { justify-content:space-between; }
+      .stat { flex:1; min-width:0; padding:7px 8px; }
+      .board-wrap { padding:9px; border-radius:18px; }
+      .board { gap:6px; }
+      .side { grid-template-columns:1fr; }
+      .steps { grid-template-columns:1fr 1fr; }
+    }
+    @media (max-width:900px) and (orientation:landscape) {
+      .page { width:min(1050px, calc(100% - 32px)); }
+      .layout { grid-template-columns:minmax(0, 1fr) 250px; gap:18px; }
+      .side { display:block; padding:15px; }
+      .side h2 { margin-bottom:10px; }
+      .steps { display:grid; grid-template-columns:1fr; gap:8px; margin:11px 0; }
+      .divider { display:block; margin:12px 0; }
+      .reset { margin-top:13px; }
+      .board-wrap { padding:10px; }
+      .board { gap:6px; }
+      .card, .face { border-radius:10px; }
+      .front { font-size:clamp(21px, 4vh, 38px); }
+    }
+    @media (prefers-reduced-motion:reduce) { *,*::before,*::after { scroll-behavior:auto!important; transition-duration:.01ms!important; animation-duration:.01ms!important; } }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header class="topline">
+      <div class="brand"><span class="brand-mark">✿</span> LITTLE MOMENT</div>
+      <div class="top-note">잠깐 쉬어가는 작은 두뇌 운동</div>
+    </header>
+    <div class="layout">
+      <section class="game-area" aria-labelledby="title">
+        <div class="intro">
+          <div class="eyebrow">A LITTLE BRAIN BREAK</div>
+          <h1 id="title">기억력 카드 뒤집기</h1>
+          <p class="subtitle">같은 그림 두 장을 찾아 짝을 맞춰보세요.</p>
+        </div>
+        <div class="toolbar">
+          <div class="segmented" role="group" aria-label="게임 난이도">
+            <button type="button" data-size="4" aria-pressed="true">쉬움 <span>4×4</span></button>
+            <button type="button" data-size="6" aria-pressed="false">도전 <span>6×6</span></button>
+          </div>
+          <div class="stats" aria-label="게임 기록">
+            <div class="stat"><span class="stat-label">시간</span><span class="stat-value" id="time">00:00</span></div>
+            <div class="stat"><span class="stat-label">이동</span><span class="stat-value" id="moves">0</span></div>
+            <div class="stat"><span class="stat-label">짝</span><span class="stat-value" id="pairs">0/8</span></div>
+          </div>
+        </div>
+        <div class="board-wrap">
+          <div class="board" id="board" role="group" aria-label="카드 게임판"></div>
+          <div class="message" id="message" aria-live="polite">카드를 눌러 게임을 시작해보세요 <strong>✦</strong></div>
+        </div>
+      </section>
+      <aside class="side" aria-label="게임 안내">
+        <h2>어떻게 플레이하나요?</h2>
+        <div class="steps">
+          <div class="step"><span class="step-icon">👀</span><span>카드를 두 장씩 뒤집어 그림을 확인해요.</span></div>
+          <div class="step"><span class="step-icon">🧩</span><span>같은 그림이면 짝이 맞아 카드가 남아요.</span></div>
+          <div class="step"><span class="step-icon">🫧</span><span>모든 짝을 찾으면 게임이 끝나요.</span></div>
+          <div class="step"><span class="step-icon">🌱</span><span>적은 이동 횟수로 기록을 세워보세요.</span></div>
+        </div>
+        <div class="divider"></div>
+        <div class="record"><span>내 최고 기록</span><b id="best">—</b></div>
+        <button type="button" class="reset" id="reset"><span>↻</span> 새 게임</button>
+      </aside>
+    </div>
+    <div class="footer">천천히 해도 괜찮아요. 오늘의 작은 집중 한 판 🌿</div>
+  </main>
+  <script>
+    (() => {
+      const symbols = ['🍓','🍋','🍊','🍇','🍐','🍑','🍒','🥝','🍉','🍍','🥑','🥕','🌽','🍄','🌼','🌙','☁️','🌈'];
+      const board = document.querySelector('#board');
+      const timeEl = document.querySelector('#time');
+      const movesEl = document.querySelector('#moves');
+      const pairsEl = document.querySelector('#pairs');
+      const messageEl = document.querySelector('#message');
+      const bestEl = document.querySelector('#best');
+      const difficultyButtons = [...document.querySelectorAll('[data-size]')];
+      let size = 4, deck = [], opened = [], locked = false, moves = 0, matched = 0;
+      let startedAt = 0, elapsed = 0, timer = null, finished = false;
+
+      function shuffle(items) {
+        const a = [...items];
+        for (let i = a.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [a[i], a[j]] = [a[j], a[i]];
+        }
+        return a;
+      }
+      function formatTime(seconds) {
+        return `${String(Math.floor(seconds / 60)).padStart(2, '0')}:${String(seconds % 60).padStart(2, '0')}`;
+      }
+      function currentSeconds() {
+        return startedAt ? elapsed + Math.floor((Date.now() - startedAt) / 1000) : elapsed;
+      }
+      function updateTime() { timeEl.textContent = formatTime(currentSeconds()); }
+      function getBest() {
+        try { return JSON.parse(localStorage.getItem(`memory-match-best-${size}`) || 'null'); }
+        catch { return null; }
+      }
+      function updateBest() {
+        const best = getBest();
+        bestEl.textContent = best ? `${best.moves}회 · ${formatTime(best.seconds)}` : '아직 없어요';
+      }
+      function startTimer() {
+        if (startedAt || finished) return;
+        startedAt = Date.now();
+        timer = window.setInterval(updateTime, 250);
+      }
+      function makeCard(symbol, index) {
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.className = 'card';
+        button.dataset.symbol = symbol;
+        button.setAttribute('aria-label', `카드 ${index + 1}, 뒤집혀 있음`);
+        button.innerHTML = '<span class="card-inner"><span class="face back" aria-hidden="true"></span><span class="face front" aria-hidden="true"></span></span>';
+        button.querySelector('.front').textContent = symbol;
+        button.addEventListener('click', () => flip(button));
+        return button;
+      }
+      function newGame(nextSize = size) {
+        size = nextSize;
+        clearInterval(timer);
+        timer = null; startedAt = 0; elapsed = 0; moves = 0; matched = 0; opened = []; locked = false; finished = false;
+        const pairCount = size * size / 2;
+        deck = shuffle(symbols.slice(0, pairCount).flatMap(symbol => [symbol, symbol]));
+        board.style.gridTemplateColumns = `repeat(${size}, minmax(0, 1fr))`;
+        board.replaceChildren(...deck.map(makeCard));
+        movesEl.textContent = '0'; pairsEl.textContent = `0/${pairCount}`; updateTime(); updateBest();
+        messageEl.innerHTML = '카드를 눌러 게임을 시작해보세요 <strong>✦</strong>';
+        difficultyButtons.forEach(button => button.setAttribute('aria-pressed', String(Number(button.dataset.size) === size)));
+      }
+      function flip(card) {
+        if (locked || card.classList.contains('is-open') || card.classList.contains('is-matched') || finished) return;
+        startTimer();
+        card.classList.add('is-open');
+        card.setAttribute('aria-label', `그림 ${card.dataset.symbol}`);
+        opened.push(card);
+        if (opened.length < 2) return;
+        moves += 1; movesEl.textContent = String(moves);
+        const [first, second] = opened;
+        if (first.dataset.symbol === second.dataset.symbol) {
+          first.classList.add('is-matched'); second.classList.add('is-matched');
+          first.setAttribute('aria-label', `짝 맞춤 ${first.dataset.symbol}`);
+          second.setAttribute('aria-label', `짝 맞춤 ${second.dataset.symbol}`);
+          first.disabled = true; second.disabled = true;
+          matched += 1; pairsEl.textContent = `${matched}/${size * size / 2}`;
+          opened = [];
+          if (matched === size * size / 2) finishGame();
+          else messageEl.innerHTML = '잘 찾았어요! 다음 짝도 찾아볼까요? <strong>✦</strong>';
+        } else {
+          locked = true;
+          messageEl.textContent = '아쉽지만 괜찮아요. 그림을 기억해두세요!';
+          window.setTimeout(() => {
+            for (const item of opened) {
+              item.classList.remove('is-open');
+              item.setAttribute('aria-label', `카드, 뒤집혀 있음`);
+            }
+            opened = []; locked = false;
+          }, 850);
+        }
+      }
+      function finishGame() {
+        finished = true; elapsed = currentSeconds(); startedAt = 0; clearInterval(timer); timer = null; updateTime();
+        const previous = getBest();
+        const isBest = !previous || moves < previous.moves || (moves === previous.moves && elapsed < previous.seconds);
+        if (isBest) {
+          try { localStorage.setItem(`memory-match-best-${size}`, JSON.stringify({ moves, seconds: elapsed })); } catch {}
+          updateBest();
+        }
+        messageEl.innerHTML = isBest ? '완벽해요! 새로운 최고 기록이에요 <strong>🏆</strong>' : '모든 짝을 찾았어요! 참 잘했어요 <strong>🌷</strong>';
+      }
+      difficultyButtons.forEach(button => button.addEventListener('click', () => newGame(Number(button.dataset.size))));
+      document.querySelector('#reset').addEventListener('click', () => newGame(size));
+      newGame();
+      if ('serviceWorker' in navigator && location.protocol.startsWith('http')) {
+        window.addEventListener('load', () => navigator.serviceWorker.register('./service-worker.js').catch(() => {}));
+      }
+    })();
+  </script>
+</body>
+</html>
