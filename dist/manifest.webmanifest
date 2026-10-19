@@ -1,15 +1,1 @@
-{
-  "name": "기억력 챌린지 · 총학생회 이벤트",
-  "short_name": "기억력 챌린지",
-  "description": "60초 안에 카드 짝을 맞히는 총학생회 행사 게임",
-  "lang": "ko-KR",
-  "start_url": "./",
-  "scope": "./",
-  "display": "standalone",
-  "background_color": "#f6f8f2",
-  "theme_color": "#f6f8f2",
-  "orientation": "any",
-  "icons": [
-    { "src": "icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
-  ]
-}
+{"name":"경제대학 · 기억을 잇다","short_name":"기억을 잇다","lang":"ko-KR","start_url":"./","scope":"./","display":"standalone","background_color":"#14271b","theme_color":"#14271b","orientation":"any","icons":[{"src":"icon.svg","sizes":"any","type":"image/svg+xml","purpose":"any maskable"}]}
