@@ -1,4 +1,4 @@
-const CACHE = 'mungis-minigame-v6';
+const CACHE = 'speak-to-speak-v7';
 const FILES = ['./', './index.html', './manifest.webmanifest', './icon.svg', './assets/poster-emblem.png'];
 
 self.addEventListener('install', event => {
