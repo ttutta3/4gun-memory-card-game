@@ -33,11 +33,11 @@ footer{flex:0 0 auto;width:100%;max-width:none;margin:clamp(7px,1.2vh,12px) auto
 @media(max-width:520px){.page{padding-left:17px;padding-right:17px}.header-right{gap:8px}.top-symbol{width:30px;height:38px}.header-right .label{font-size:9px}.player-name{font-size:12px}.hud{gap:7px}.metric .label{font-size:9px}.metric .value,.metric .value.small{font-size:17px}}
 @media(prefers-reduced-motion:reduce){.card-inner{transition:none}}
 
-/* Portrait card layout stays 4 by 4 at every viewport orientation. */
+/* Portrait-only board with taller cards. */
 .game>div{align-items:stretch}
-.board{grid-template-columns:repeat(4,minmax(0,1fr));grid-template-rows:repeat(4,minmax(0,1fr));aspect-ratio:2/3;width:min(100%,calc((100svh - 220px)*.666667));max-height:calc(100svh - 220px);flex:0 1 auto}
-.card{aspect-ratio:2/3;width:100%;height:100%}
-@media(orientation:portrait){.board{width:min(100%,calc((100svh - 220px)*.666667))}}
+.board{grid-template-columns:repeat(4,minmax(0,1fr));grid-template-rows:repeat(4,minmax(0,1fr));aspect-ratio:3/5;width:min(100%,calc((100svh - 220px)*.6));max-height:calc(100svh - 220px);flex:0 1 auto}
+.card{aspect-ratio:3/5;width:100%;height:100%}
+@media(orientation:portrait){.board{width:min(100%,calc((100svh - 220px)*.6))}}
 
 .brand{display:flex;align-items:baseline;gap:clamp(9px,1.5vw,18px);min-width:0}.department{font-size:clamp(12px,1.5vw,17px);letter-spacing:.08em;color:var(--gold);white-space:nowrap}
 @media(max-width:440px){.brand{gap:7px}.department{font-size:11px}h1{font-size:clamp(20px,5vw,24px)}}
