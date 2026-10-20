@@ -1,4 +1,4 @@
-const CACHE = 'speak-to-speak-v15';
+const CACHE = 'speak-to-speak-v14';
 const FILES = ['./', './index.html', './manifest.webmanifest', './icon.svg', './assets/poster-emblem.png', './assets/ChosunKm.woff'];
 
 self.addEventListener('install', event => {
