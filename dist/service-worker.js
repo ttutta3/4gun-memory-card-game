@@ -1,5 +1,5 @@
-const CACHE = 'speak-to-speak-v21';
-const FILES = ['./', './index.html', './manifest.webmanifest', './icon.svg', './assets/poster-emblem.png', './assets/card-back.png?v=3', './assets/ChosunKm.woff', './assets/card-front/business.png', './assets/card-front/economics.png', './assets/card-front/global-leadership.png', './assets/card-front/global-convergence.png', './assets/card-front/liberal-arts.png', './assets/card-front/education.png', './assets/card-front/social-sciences.png', './assets/card-front/arts.png', './assets/card-front/confucian-studies.png', './assets/card-front/undergraduate-studies.png'];
+const CACHE = 'speak-to-speak-v22';
+const FILES = ['./', './index.html', './manifest.webmanifest', './icon.svg', './assets/poster-emblem.png', './assets/card-back.webp?v=4', './assets/ChosunKm.woff', './assets/card-front/business.webp', './assets/card-front/economics.webp', './assets/card-front/global-leadership.webp', './assets/card-front/global-convergence.webp', './assets/card-front/liberal-arts.webp', './assets/card-front/education.webp', './assets/card-front/social-sciences.webp', './assets/card-front/arts.webp', './assets/card-front/confucian-studies.webp', './assets/card-front/undergraduate-studies.webp'];
 
 self.addEventListener('install', event => {
   event.waitUntil(caches.open(CACHE).then(cache => cache.addAll(FILES)));
