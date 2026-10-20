@@ -1,5 +1,5 @@
-const CACHE = 'speak-to-speak-v19';
-const FILES = ['./', './index.html', './manifest.webmanifest', './icon.svg', './assets/poster-emblem.png', './assets/card-back.png?v=2', './assets/ChosunKm.woff'];
+const CACHE = 'speak-to-speak-v20';
+const FILES = ['./', './index.html', './manifest.webmanifest', './icon.svg', './assets/poster-emblem.png', './assets/card-back.png?v=2', './assets/ChosunKm.woff', './assets/card-front/business.png', './assets/card-front/economics.png', './assets/card-front/global-leadership.png', './assets/card-front/global-convergence.png', './assets/card-front/liberal-arts.png', './assets/card-front/education.png', './assets/card-front/social-sciences.png', './assets/card-front/arts.png', './assets/card-front/confucian-studies.png', './assets/card-front/undergraduate-studies.png'];
 
 self.addEventListener('install', event => {
   event.waitUntil(caches.open(CACHE).then(cache => cache.addAll(FILES)));
