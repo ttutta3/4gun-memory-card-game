@@ -1,4 +1,4 @@
-const CACHE = 'economics-memory-v3';
+const CACHE = 'economics-memory-v5';
 const FILES = ['./', './index.html', './manifest.webmanifest', './icon.svg', './assets/poster-emblem.png'];
 
 self.addEventListener('install', event => {
