@@ -38,6 +38,9 @@ footer{flex:0 0 auto;width:100%;max-width:none;margin:clamp(7px,1.2vh,12px) auto
 .board{grid-template-columns:repeat(4,minmax(0,1fr));grid-template-rows:repeat(4,minmax(0,1fr));aspect-ratio:2/3;width:min(100%,calc((100svh - 220px)*.666667));max-height:calc(100svh - 220px);flex:0 1 auto}
 .card{aspect-ratio:2/3;width:100%;height:100%}
 @media(orientation:portrait){.board{width:min(100%,calc((100svh - 220px)*.666667))}}
+
+.brand{display:flex;align-items:baseline;gap:clamp(9px,1.5vw,18px);min-width:0}.department{font-size:clamp(12px,1.5vw,17px);letter-spacing:.08em;color:var(--gold);white-space:nowrap}
+@media(max-width:440px){.brand{gap:7px}.department{font-size:11px}h1{font-size:clamp(20px,5vw,24px)}}
 </style></head>
 <body>
 <svg xmlns="http://www.w3.org/2000/svg" style="position:absolute;width:0;height:0" aria-hidden="true"><defs>
@@ -51,7 +54,7 @@ footer{flex:0 0 auto;width:100%;max-width:none;margin:clamp(7px,1.2vh,12px) auto
 <symbol id="knot" viewBox="0 0 64 64"><path d="M32 6c-8 8-8 19 0 26 8-7 8-18 0-26ZM32 32C24 19 11 19 7 23c2 13 13 17 25 9Zm0 0c8-13 21-13 25-9-2 13-13 17-25 9Zm0 0c-12-4-18 2-18 8 10 4 16 0 18-8Zm0 0c12-4 18 2 18 8-10 4-16 0-18-8ZM32 34v14m-5 0h10m-10 5h10m-9 0v9m4-9v9m4-9v9"/></symbol>
 </defs></svg>
 <main class="page"><div class="frame" aria-hidden="true"><i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i></div>
-<header><div><h1>Speak to Speak</h1></div><div class="header-right"><div class="player"><span class="label">참가자</span><span class="player-name" id="playerName">—</span></div><svg class="top-symbol" fill="none" stroke="currentColor" stroke-width="1.1" aria-hidden="true"><use href="#knot"/></svg></div></header>
+<header><div class="brand"><h1>Speak to Speak</h1><span class="department">사무총괄국</span></div><div class="header-right"><div class="player"><span class="label">참가자</span><span class="player-name" id="playerName">—</span></div><svg class="top-symbol" fill="none" stroke="currentColor" stroke-width="1.1" aria-hidden="true"><use href="#knot"/></svg></div></header>
 <section class="game" id="game" inert aria-label="기억력 카드 게임"><aside class="hud"><div class="metric"><span class="label">남은 시간</span><span class="value" id="clock">00:01:00</span></div><div class="metric"><span class="label">시도 횟수</span><span class="value small" id="attempts">0</span></div><div class="metric"><span class="label">남은 쌍</span><span class="value small" id="pairs">8</span></div></aside><div><p class="phase" id="phase" aria-live="polite">카드의 문장을 기억하고, 같은 짝을 찾아주세요.</p><div class="board" id="board"></div></div></section>
 <footer>성균관대학교 제58대 총학생회 SPEAK · 사무총괄국</footer></main>
 <div class="overlay" id="startOverlay"><section class="modal" role="dialog" aria-modal="true" aria-labelledby="startTitle"><svg class="ornament" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><use href="#ginkgo"/></svg><h2 id="startTitle">Speak to Speak</h2><div class="rules"><div class="rule"><b>60초</b>제한 시간</div></div><form id="startForm"><label for="nickname">이름 또는 닉네임</label><input id="nickname" placeholder="기록에 남길 이름을 입력해 주세요" maxlength="16" autocomplete="off" required><button class="primary" type="submit">시작하기</button></form></section></div>
