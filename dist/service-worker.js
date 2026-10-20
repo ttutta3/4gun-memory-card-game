@@ -1,5 +1,5 @@
-const CACHE = 'speak-to-speak-v8';
-const FILES = ['./', './index.html', './manifest.webmanifest', './icon.svg', './assets/poster-emblem.png'];
+const CACHE = 'speak-to-speak-v9';
+const FILES = ['./', './index.html', './manifest.webmanifest', './icon.svg', './assets/poster-emblem.png', './assets/ChosunKm.woff'];
 
 self.addEventListener('install', event => {
   event.waitUntil(caches.open(CACHE).then(cache => cache.addAll(FILES)));
