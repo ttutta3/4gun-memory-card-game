@@ -58,7 +58,6 @@ footer{flex:0 0 auto;width:100%;max-width:none;margin:clamp(7px,1.2vh,12px) auto
 .card.matched{z-index:2;outline:1px solid #ffe27a;outline-offset:0;animation:matched-pop .5s ease-out both}
 .card.matched .front{background:#2a472d;border-color:#f2d77a;box-shadow:none}
 .card.matched .front img{filter:brightness(.74) saturate(.68)}
-.card.matched .front::before{content:"";position:absolute;inset:5px;border:1px solid #ffe27a;pointer-events:none;z-index:1}
 .card.matched .front::after{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse at center,#f8df8b66 0, #f8df8b2b 48%,transparent 82%);animation:matched-glow .9s ease-out both}
 @keyframes matched-glow{0%{opacity:1;filter:brightness(1.45)}45%{opacity:.8}100%{opacity:0}}@keyframes matched-pop{0%{transform:scale(1)}35%{transform:scale(1.06)}100%{transform:scale(1)}}
 
