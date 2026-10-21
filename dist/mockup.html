@@ -30,7 +30,7 @@ body{font-family:"Malgun Gothic",sans-serif}.stat b,.rule strong{font:20px Georg
   <nav class="screen-tabs" aria-label="목업 화면 선택"><button type="button" data-screen="entry" aria-selected="true">이름 입력</button><button type="button" data-screen="play" aria-selected="false">카드 뒤집기</button><button type="button" data-screen="result" aria-selected="false">결과</button></nav>
   <p class="preview-note">스투스 디자인 기본 · 화면 탭과 카드 디자인 선택으로 다른 버전도 비교해 보세요.</p>
   <section class="device" aria-label="Speak to Speak 화면 목업">
-    <img class="stage-art" id="stage-art" src="./assets/card-back.webp?v=6" alt="">
+    <img class="stage-art" id="stage-art" src="./assets/card-back.webp?v=7" alt="">
     <div class="device-head"><span class="device-brand">Speak to Speak</span><span>성균관대학교 · SPEAK</span></div>
     <section class="views active" data-view="entry" aria-label="이름 입력 목업">
       <div class="entry-card"><svg class="brand-ribbon" viewBox="0 0 180 40" fill="none" aria-hidden="true"><path d="M4 27c22 0 29-17 47-17 13 0 13 20 28 20 11 0 16-15 28-15 15 0 17 15 31 15 14 0 19-8 38-8"/><path d="M90 31C76 23 76 15 82 13c4-1 7 2 8 5 2-3 5-6 9-5 7 2 6 10-9 18Z"/><circle cx="28" cy="16" r="1.5"/><circle cx="151" cy="11" r="1.5"/></svg><h2>Speak to Speak</h2><div class="rules"><div class="rule"><strong>60초</strong>제한 시간</div></div><form class="mock-entry-form"><label class="name-label" for="mock-name">이름 또는 닉네임</label><input class="name" id="mock-name" value="참가자" aria-label="이름 또는 닉네임 예시"><button class="cta" type="button" data-go="play">시작하기</button></form></div>
@@ -50,7 +50,7 @@ body{font-family:"Malgun Gothic",sans-serif}.stat b,.rule strong{font:20px Georg
     stus:{business:'business.webp',economics:'economics.webp','global-leadership':'global-leadership.webp','global-convergence':'global-convergence.webp','liberal-arts':'liberal-arts.webp',education:'education.webp','social-sciences':'social-sciences.webp',arts:'arts.webp','confucian-studies':'confucian-studies.webp','undergraduate-studies':'undergraduate-studies.webp'},
     sungkyun:{business:'new-business.webp',economics:'new-economics.webp','global-leadership':'new-global-leadership.webp','global-convergence':'new-global-convergence.webp','liberal-arts':'new-liberal-arts.webp',education:'new-education.webp','social-sciences':'new-social-sciences.webp',arts:'new-arts.webp','confucian-studies':'new-confucian-studies.webp','undergraduate-studies':'new-undergraduate-studies.webp'}
   };
-  const backs={stus:'card-back.webp?v=6',sungkyun:'card-back-comparison.webp?v=1'};
+  const backs={stus:'card-back.webp?v=7',sungkyun:'card-back-comparison.webp?v=1'};
   let theme='stus';
   const frontUrl=id=>'./assets/card-front/'+fronts[theme][id]+'?v='+(theme==='stus'?'2':'1');
   function setTheme(next){
