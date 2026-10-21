@@ -30,7 +30,7 @@
   <nav class="screen-tabs" aria-label="목업 화면 선택"><button type="button" data-screen="entry" aria-selected="true">이름 입력</button><button type="button" data-screen="play" aria-selected="false">카드 뒤집기</button><button type="button" data-screen="result" aria-selected="false">결과</button></nav>
   <p class="preview-note">스투스 디자인 기본 · 화면 탭과 카드 디자인 선택으로 다른 버전도 비교해 보세요.</p>
   <section class="device" aria-label="Speak to Speak 화면 목업">
-    <img class="stage-art" id="stage-art" src="./assets/card-back.webp?v=5" alt="">
+    <img class="stage-art" id="stage-art" src="./assets/card-back.webp?v=6" alt="">
     <div class="device-head"><span class="device-brand">Speak to Speak</span><span>성균관대학교 · SPEAK</span></div>
     <section class="views active" data-view="entry" aria-label="이름 입력 목업">
       <div class="entry-card"><div class="eyebrow">MEMORY MATCH · 01</div><img class="mini-card" data-card="global-convergence" alt="글로벌융합학부 카드 그림"><h2>게임을 시작할까요?</h2><p class="entry-copy">성균관의 단과대학 문장을 기억하고<br>같은 짝을 찾아보세요.</p><div class="rules"><div class="rule"><strong>60초</strong>제한 시간</div><div class="rule"><strong>10쌍</strong>찾을 카드</div></div><label class="name-label" for="mock-name">이름 또는 닉네임</label><input class="name" id="mock-name" value="김승욱" aria-label="이름 또는 닉네임 예시"><button class="cta" type="button" data-go="play">게임 시작</button><p class="hint">이름을 입력하면 기록에 남아요.<br>카드 그림은 전체가 보이도록 표시됩니다.</p></div>
@@ -50,7 +50,7 @@
     stus:{business:'business.webp',economics:'economics.webp','global-leadership':'global-leadership.webp','global-convergence':'global-convergence.webp','liberal-arts':'liberal-arts.webp',education:'education.webp','social-sciences':'social-sciences.webp',arts:'arts.webp','confucian-studies':'confucian-studies.webp','undergraduate-studies':'undergraduate-studies.webp'},
     sungkyun:{business:'new-business.webp',economics:'new-economics.webp','global-leadership':'new-global-leadership.webp','global-convergence':'new-global-convergence.webp','liberal-arts':'new-liberal-arts.webp',education:'new-education.webp','social-sciences':'new-social-sciences.webp',arts:'new-arts.webp','confucian-studies':'new-confucian-studies.webp','undergraduate-studies':'new-undergraduate-studies.webp'}
   };
-  const backs={stus:'card-back.webp?v=5',sungkyun:'card-back-comparison.webp?v=1'};
+  const backs={stus:'card-back.webp?v=6',sungkyun:'card-back-comparison.webp?v=1'};
   let theme='stus';
   const frontUrl=id=>'./assets/card-front/'+fronts[theme][id]+'?v='+(theme==='stus'?'2':'1');
   function setTheme(next){
